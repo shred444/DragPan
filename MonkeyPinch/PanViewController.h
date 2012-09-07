@@ -36,5 +36,11 @@
 -(void)performTranslationWithRecognizer:(UIPanGestureRecognizer *)recognizer;
 @property (weak, nonatomic) IBOutlet UILabel *yPosition;
 @property (weak, nonatomic) IBOutlet UILabel *xPosition;
+@property (weak, nonatomic) IBOutlet UILabel *subviewCount;
+@property (weak, nonatomic) IBOutlet UILabel *mainviewCount;
+@property bool showCoords;
+@property bool showDropShadow;
+@property bool snapToGrid;
+@property float scaling;
 
 @end

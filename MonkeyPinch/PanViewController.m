@@ -11,11 +11,17 @@
 @implementation ViewController
 @synthesize yPosition;
 @synthesize xPosition;
+@synthesize subviewCount;
+@synthesize mainviewCount;
 @synthesize bananaPan;
 @synthesize littleView;
 @synthesize monkeyPan;
 @synthesize chompPlayer;
 @synthesize hehePlayer;
+@synthesize showCoords = _showCoords;
+@synthesize showDropShadow = _showDropShadow;
+@synthesize snapToGrid = _snapToGrid;
+@synthesize scaling = _scaling;
 
 - (void)didReceiveMemoryWarning
 {
@@ -44,9 +50,15 @@
         
         
     }
+    self.showCoords = YES;
+    self.showDropShadow = YES;
+    self.snapToGrid = YES;
+    self.scaling = 2;
+    self.subviewCount.text = [NSString stringWithFormat:@"%d",self.littleView.subviews.count];
+    self.mainviewCount.text = [NSString stringWithFormat:@"%d",self.view.subviews.count];
 
-    self.chompPlayer = [self loadWav:@"chomp"];
-    self.hehePlayer = [self loadWav:@"hehehe1"];
+    //self.chompPlayer = [self loadWav:@"chomp"];
+    //self.hehePlayer = [self loadWav:@"hehehe1"];
 }
 
 - (void)viewDidUnload
@@ -57,6 +69,8 @@
     yPosition = nil;
     [self setYPosition:nil];
     [self setXPosition:nil];
+    [self setSubviewCount:nil];
+    [self setMainviewCount:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -90,7 +104,7 @@
 
 - (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer {
     
-    [self performTranslationWithRecognizer:recognizer];
+    //NSLog(@"State: %d", recognizer.state);
     
    if (recognizer.state == UIGestureRecognizerStateBegan) {
         
@@ -98,84 +112,116 @@
        
        //get the view that was clicked
        UIImageView *recognizerView = (UIImageView *)recognizer.view;
+       CGRect frameInMainView = [self.littleView convertRect:recognizerView.frame toView:self.view];
        CGPoint touchPoint = recognizerView.frame.origin;
-       NSLog(@"Start Center: %d, %d",(int)recognizerView.center.x,(int)recognizerView.center.y);
-       //create the copy
-       UIImageView *copy = [self createCopyOfImageView:recognizerView atPosition:touchPoint];
-       //add copy to toolbar view
-       [recognizerView.superview addSubview:copy];
+       CGPoint translatedPoint = frameInMainView.origin;
+       NSLog(@"Touch Point Center: %d, %d",(int)recognizerView.frame.origin.x,(int)recognizerView.frame.origin.y);
+       NSLog(@"Trans Point Center: %d, %d",(int)translatedPoint.x,(int)translatedPoint.y);
        
-       //bring the copy to the front
-       //[self.view bringSubviewToFront:recognizerView];
+       //add tappoint
+       UIView *insidetap = [[UIView alloc]initWithFrame:CGRectMake(touchPoint.x, touchPoint.y, 10, 10)];
+       insidetap.backgroundColor = [UIColor blueColor];
+       [self.littleView addSubview:insidetap];
        
-       //scale copy x2
-       CGRect scaledFrame = recognizerView.frame;
-       scaledFrame.size.height = scaledFrame.size.height*2;
-       scaledFrame.size.width = scaledFrame.size.width*2;
-       recognizerView.frame = scaledFrame;
-       //recognizerView.center =
-       //[recognizerView removeFromSuperview];
-       CGPoint translation = [recognizer translationInView:self.view];
+       //convert the coordinates to the mainView
        
+       NSLog(@"converted Center: %d, %d",(int)frameInMainView.origin.x,(int)frameInMainView.origin.y);
        
-       
+       //add the dragged object to the main view
        [self.view addSubview:recognizerView];
        
-       NSLog(@"Continuing Center: %d, %d",(int)recognizerView.center.x,(int)recognizerView.center.y);
+       //add tappoint
+       UIView *outsidetap = [[UIView alloc]initWithFrame:CGRectMake(translatedPoint.x, translatedPoint.y, 5, 5)];
+       outsidetap.backgroundColor = [UIColor yellowColor];
+       [self.view addSubview:outsidetap];
        
-       CGPoint newPoint = CGPointMake(recognizerView.center.x + translation.x,
-                                      recognizerView.center.y + translation.y);
-       recognizerView.center = newPoint;
+       
+       //translate image to new coord system
+       recognizerView.center = translatedPoint;
+       NSLog(@"translation occured from %d %d -> %d %d",(int)touchPoint.x, (int)touchPoint.y, (int)translatedPoint.x, (int)translatedPoint.y);
+       
+       //create the copy
+       [self createCopyOfImageView:recognizerView atPosition:touchPoint inView:self.littleView];
+       
+       //scale original x2
+       
+       if(self.scaling !=0)
+       {
+           CGRect scaledFrame = recognizerView.frame;
+           scaledFrame.size.height = scaledFrame.size.height*self.scaling;
+           scaledFrame.size.width = scaledFrame.size.width*self.scaling;
+           recognizerView.frame = scaledFrame;
+           NSLog(@"Copy has been scaled. Origin:");
+       }
+       
+       
+       //CGPoint translation = [recognizer translationInView:self.view];
+       
+       //create the coordinates
+       if(self.showCoords)
+       {
+           UILabel *coords = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
+           coords.backgroundColor = [UIColor redColor];
+           
+           //add the coords to the imageview
+           [recognizerView addSubview:coords];
+       }
        
        //initialize drop shadow
-       dropShadow = [[UIView alloc]initWithFrame:recognizerView.frame];
-       dropShadow.backgroundColor = [UIColor grayColor];
-       dropShadow.alpha = .5;
-       [self.view addSubview:dropShadow];
-       [self.view bringSubviewToFront:recognizerView];
-    
+       if(self.showDropShadow)
+       {
+           dropShadow = [[UIView alloc]initWithFrame:recognizerView.frame];
+           dropShadow.backgroundColor = [UIColor grayColor];
+           dropShadow.alpha = .5;
+           dropShadow.center = recognizerView.center;
+           [self.view addSubview:dropShadow];
+           [self.view bringSubviewToFront:recognizerView];
+       }
+           
    }else if(recognizer.state == UIGestureRecognizerStateEnded)
    {
        NSLog(@"State ended");
-       NSLog(@"Recognizer Image: %@",recognizer.view);
+       //NSLog(@"Recognizer Image: %@",recognizer.view);
        UIImageView *currentImage = (UIImageView *)recognizer.view;
-       NSLog(@"Current Image: %@",currentImage);
+       //NSLog(@"Current Image: %@",currentImage);
        UIPanGestureRecognizer *panGest = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(moveImage:)];
        panGest.delegate = self;
        panGest.minimumNumberOfTouches = 1;
        panGest.maximumNumberOfTouches = 1;
        
        //add recognizer to copy
-       NSLog(@"Remaining Gestures %d: %@",recognizer.view.gestureRecognizers.count, recognizer.view.gestureRecognizers);
+       //NSLog(@"Remaining Gestures %d: %@",recognizer.view.gestureRecognizers.count, recognizer.view.gestureRecognizers);
        
        //[recognizer removeTarget:nil action:NULL];
        
        [recognizer.view removeGestureRecognizer:recognizer];
        
-       NSLog(@"Remaining Gestures %d: %@",recognizer.view.gestureRecognizers.count, recognizer.view.gestureRecognizers);
+       //NSLog(@"Remaining Gestures %d: %@",recognizer.view.gestureRecognizers.count, recognizer.view.gestureRecognizers);
        
        currentImage.userInteractionEnabled = YES;
        
        [currentImage addGestureRecognizer:panGest];
        
-       NSLog(@"Snapped to grid");
-       //move image to dropshadow location
-       currentImage.frame = dropShadow.frame;
-       currentImage.center = dropShadow.center;
-       NSLog(@"Dropshadow.center = %d,%d",(int)dropShadow.center.x, (int)dropShadow.center.y);
-       
-       NSLog(@"Recognizer = %d,%d",(int)recognizer.view.center.x, (int)recognizer.view.center.y);
-       
+       //snap final image to grid
+       currentImage.center = [self snapToGrid:currentImage.center gridSpacing:20];
        
        //remove dropshadow
-       [dropShadow removeFromSuperview];
-       dropShadow = nil;
+       if(self.showDropShadow)
+       {
+           [dropShadow removeFromSuperview];
+           dropShadow = nil;
+       }
        
-       
-       
-       
-       NSLog(@"Remaining Gestures %d: %@",currentImage.gestureRecognizers.count, currentImage.gestureRecognizers);
+   }else if(recognizer.state == UIGestureRecognizerStateChanged)
+   {
+       [self performTranslationWithRecognizer:recognizer];
    }
+    
+    
+    
+    self.subviewCount.text = [NSString stringWithFormat:@"%d",self.littleView.subviews.count];
+    self.mainviewCount.text = [NSString stringWithFormat:@"%d",self.view.subviews.count];
+    
     
 }
 
@@ -219,7 +265,7 @@
     [self.hehePlayer play];
 }
 
--(UIImageView *)createCopyOfImageView:(UIImageView *)imageView atPosition:(CGPoint)point
+-(UIImageView *)createCopyOfImageView:(UIImageView *)imageView atPosition:(CGPoint)point inView:(UIView *)view
 {
     UIImageView *imageCopy;
     
@@ -247,9 +293,13 @@
     //add recognizer to copy
     [imageCopy addGestureRecognizer:newRecognizer];
     
-    NSLog(@"%@",imageCopy.gestureRecognizers);
+    //NSLog(@"%@",imageCopy.gestureRecognizers);
+    NSLog(@"Copy has been created with %d recognizer attached", imageCopy.gestureRecognizers.count);
     
     imageCopy.userInteractionEnabled = YES;
+    
+    [view addSubview:imageCopy];
+    
     return imageCopy;
 }
 
@@ -260,17 +310,28 @@
     CGPoint newPoint = CGPointMake(recViewCenter.x + translation.x,
                                          recViewCenter.y + translation.y);
     CGPoint snapPoint = newPoint;
-    
-    
-    
-    float step = 20.0; // Grid step size.
-    snapPoint.x = step * floor((newPoint.x / step) + 0.5);
-    snapPoint.y = step * floor((newPoint.y / step) + 0.5);
-    
     recognizer.view.center = newPoint;
+    
+    
+    if(self.snapToGrid)
+    {
+        //float step = 20.0; // Grid step size.
+        //snapPoint.x = step * floor((newPoint.x / step) + 0.5);
+        //snapPoint.y = step * floor((newPoint.y / step) + 0.5);
+        snapPoint = [self snapToGrid:newPoint gridSpacing:20];
+    }
+    
     
     NSLog(@"centerx: %d   centery: %d   |   x: %d   y: %d   |   x: %d   y: %d", (int)recViewCenter.x, (int)recViewCenter.y, (int)snapPoint.x, (int)snapPoint.y, (int)newPoint.x, (int)newPoint.y);
 
+    if(self.showCoords)
+    {
+        UILabel *coords = [recognizer.view.subviews objectAtIndex:0];
+        coords.text = [NSString stringWithFormat:@"%dx %dy",(int)newPoint.x,(int)newPoint.y];
+    }
+        
+        
+    
     //handle drop shadow
     dropShadow.frame = recognizer.view.frame;
     dropShadow.center = snapPoint;
@@ -278,6 +339,15 @@
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
     self.xPosition.text = [NSString stringWithFormat:@"%d",(int)recognizer.view.center.x];
     self.yPosition.text = [NSString stringWithFormat:@"%d",(int)recognizer.view.center.y];
+}
+
+-(CGPoint)snapToGrid:(CGPoint)originalPoint gridSpacing:(float)grid
+{
+    CGPoint newPoint;
+    newPoint.x = grid * floor((originalPoint.x / grid) + 0.5);
+    newPoint.y = grid * floor((originalPoint.y / grid) + 0.5);
+    
+    return newPoint;
 }
 
 @end
