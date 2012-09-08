@@ -41,6 +41,7 @@
 @property bool showCoords;
 @property bool showDropShadow;
 @property bool snapToGrid;
+@property float gridSpacing;
 @property float scaling;
 
 @end
