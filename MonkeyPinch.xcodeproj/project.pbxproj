@@ -21,6 +21,12 @@
 		353EC71514858BE300BC279E /* object_bananabunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 353EC71114858BE300BC279E /* object_bananabunch.png */; };
 		353EC71B14859AD500BC279E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 353EC71A14859AD500BC279E /* AVFoundation.framework */; };
 		353EC71E14859F6700BC279E /* TickleGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 353EC71D14859F6600BC279E /* TickleGestureRecognizer.m */; };
+		ABED038F15FAE33600FBCE62 /* PanMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = ABED038E15FAE33600FBCE62 /* PanMethods.m */; };
+		ABED039615FAE42700FBCE62 /* ToolBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABED039515FAE42700FBCE62 /* ToolBoxViewController.m */; };
+		ABED039915FAE63C00FBCE62 /* ToolBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABED039815FAE63C00FBCE62 /* ToolBoxView.m */; };
+		ABED039D15FAF06B00FBCE62 /* rpm_gauge.png in Resources */ = {isa = PBXBuildFile; fileRef = ABED039A15FAF06B00FBCE62 /* rpm_gauge.png */; };
+		ABED039E15FAF06B00FBCE62 /* tach_gauge.png in Resources */ = {isa = PBXBuildFile; fileRef = ABED039B15FAF06B00FBCE62 /* tach_gauge.png */; };
+		ABED039F15FAF06B00FBCE62 /* tachometer.png in Resources */ = {isa = PBXBuildFile; fileRef = ABED039C15FAF06B00FBCE62 /* tachometer.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +50,15 @@
 		353EC71A14859AD500BC279E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		353EC71C14859F6600BC279E /* TickleGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickleGestureRecognizer.h; sourceTree = "<group>"; };
 		353EC71D14859F6600BC279E /* TickleGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickleGestureRecognizer.m; sourceTree = "<group>"; };
+		ABED038D15FAE33600FBCE62 /* PanMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanMethods.h; sourceTree = "<group>"; };
+		ABED038E15FAE33600FBCE62 /* PanMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanMethods.m; sourceTree = "<group>"; };
+		ABED039415FAE42700FBCE62 /* ToolBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolBoxViewController.h; path = MonkeyPinch/ToolBoxViewController.h; sourceTree = "<group>"; };
+		ABED039515FAE42700FBCE62 /* ToolBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToolBoxViewController.m; path = MonkeyPinch/ToolBoxViewController.m; sourceTree = "<group>"; };
+		ABED039715FAE63C00FBCE62 /* ToolBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBoxView.h; sourceTree = "<group>"; };
+		ABED039815FAE63C00FBCE62 /* ToolBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBoxView.m; sourceTree = "<group>"; };
+		ABED039A15FAF06B00FBCE62 /* rpm_gauge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rpm_gauge.png; path = "../../Dash-iOS/Dash/images/rpm_gauge.png"; sourceTree = "<group>"; };
+		ABED039B15FAF06B00FBCE62 /* tach_gauge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tach_gauge.png; path = "../../Dash-iOS/Dash/images/tach_gauge.png"; sourceTree = "<group>"; };
+		ABED039C15FAF06B00FBCE62 /* tachometer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tachometer.png; path = "../../Dash-iOS/Dash/images/tachometer.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +79,8 @@
 		353EC6E214858B6F00BC279E = {
 			isa = PBXGroup;
 			children = (
+				ABED039415FAE42700FBCE62 /* ToolBoxViewController.h */,
+				ABED039515FAE42700FBCE62 /* ToolBoxViewController.m */,
 				353EC71A14859AD500BC279E /* AVFoundation.framework */,
 				353EC6F714858B6F00BC279E /* MonkeyPinch */,
 				353EC6F014858B6F00BC279E /* Frameworks */,
@@ -92,6 +109,9 @@
 		353EC6F714858B6F00BC279E /* MonkeyPinch */ = {
 			isa = PBXGroup;
 			children = (
+				ABED039A15FAF06B00FBCE62 /* rpm_gauge.png */,
+				ABED039B15FAF06B00FBCE62 /* tach_gauge.png */,
+				ABED039C15FAF06B00FBCE62 /* tachometer.png */,
 				353EC70E14858BE300BC279E /* chomp.wav */,
 				353EC70F14858BE300BC279E /* hehehe1.wav */,
 				353EC71014858BE300BC279E /* monkey_1.png */,
@@ -99,11 +119,15 @@
 				353EC70014858B6F00BC279E /* PanAppDelegate.h */,
 				353EC70114858B6F00BC279E /* PanAppDelegate.m */,
 				353EC70314858B6F00BC279E /* MainStoryboard.storyboard */,
+				ABED039715FAE63C00FBCE62 /* ToolBoxView.h */,
+				ABED039815FAE63C00FBCE62 /* ToolBoxView.m */,
 				353EC70614858B6F00BC279E /* PanViewController.h */,
 				353EC70714858B6F00BC279E /* PanViewController.m */,
 				353EC71C14859F6600BC279E /* TickleGestureRecognizer.h */,
 				353EC71D14859F6600BC279E /* TickleGestureRecognizer.m */,
 				353EC6F814858B6F00BC279E /* Supporting Files */,
+				ABED038D15FAE33600FBCE62 /* PanMethods.h */,
+				ABED038E15FAE33600FBCE62 /* PanMethods.m */,
 			);
 			path = MonkeyPinch;
 			sourceTree = "<group>";
@@ -175,6 +199,9 @@
 				353EC71314858BE300BC279E /* hehehe1.wav in Resources */,
 				353EC71414858BE300BC279E /* monkey_1.png in Resources */,
 				353EC71514858BE300BC279E /* object_bananabunch.png in Resources */,
+				ABED039D15FAF06B00FBCE62 /* rpm_gauge.png in Resources */,
+				ABED039E15FAF06B00FBCE62 /* tach_gauge.png in Resources */,
+				ABED039F15FAF06B00FBCE62 /* tachometer.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +216,9 @@
 				353EC70214858B6F00BC279E /* PanAppDelegate.m in Sources */,
 				353EC70814858B6F00BC279E /* PanViewController.m in Sources */,
 				353EC71E14859F6700BC279E /* TickleGestureRecognizer.m in Sources */,
+				ABED038F15FAE33600FBCE62 /* PanMethods.m in Sources */,
+				ABED039615FAE42700FBCE62 /* ToolBoxViewController.m in Sources */,
+				ABED039915FAE63C00FBCE62 /* ToolBoxView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
