@@ -11,7 +11,7 @@
 #import "TickleGestureRecognizer.h"
 #import "ToolBoxViewController.h"
 
-@interface PanViewController : UIViewController <UIGestureRecognizerDelegate>{
+@interface PanViewController2 : UIViewController <UIGestureRecognizerDelegate>{
     
 	UIImageView		*copiedImage;
     UIPanGestureRecognizer *newRecognizer;

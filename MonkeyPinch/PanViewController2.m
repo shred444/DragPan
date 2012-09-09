@@ -6,9 +6,9 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "PanViewController.h"
+#import "PanViewController2.h"
 
-@implementation PanViewController
+@implementation PanViewController2
 @synthesize yPosition;
 @synthesize xPosition;
 @synthesize subviewCount;
@@ -67,14 +67,8 @@
         panGest.minimumNumberOfTouches = 1;
         panGest.maximumNumberOfTouches = 1;
         
-        NSLog(@"Gesture: %@",image.gestureRecognizers);
-        if (![panGest respondsToSelector:@selector(handlePan:)]) {
-            //[panGest release];
-            //panGest = nil;
-            NSLog(@"Does not respond");
-        }
-        
         [image addGestureRecognizer:panGest];
+        NSLog(@"Gesture: %@",image.gestureRecognizers);
 
     }
     

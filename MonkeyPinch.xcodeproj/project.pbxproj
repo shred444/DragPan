@@ -27,6 +27,7 @@
 		ABED039D15FAF06B00FBCE62 /* rpm_gauge.png in Resources */ = {isa = PBXBuildFile; fileRef = ABED039A15FAF06B00FBCE62 /* rpm_gauge.png */; };
 		ABED039E15FAF06B00FBCE62 /* tach_gauge.png in Resources */ = {isa = PBXBuildFile; fileRef = ABED039B15FAF06B00FBCE62 /* tach_gauge.png */; };
 		ABED039F15FAF06B00FBCE62 /* tachometer.png in Resources */ = {isa = PBXBuildFile; fileRef = ABED039C15FAF06B00FBCE62 /* tachometer.png */; };
+		ABED03A115FBFFC100FBCE62 /* ToolBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABED03A015FBFFC100FBCE62 /* ToolBox.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		353EC71A14859AD500BC279E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		353EC71C14859F6600BC279E /* TickleGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickleGestureRecognizer.h; sourceTree = "<group>"; };
 		353EC71D14859F6600BC279E /* TickleGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickleGestureRecognizer.m; sourceTree = "<group>"; };
+		ABA1B78015FD2E87004C53EA /* PanViewController2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PanViewController2.h; sourceTree = "<group>"; };
+		ABA1B78115FD2E87004C53EA /* PanViewController2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PanViewController2.m; sourceTree = "<group>"; };
 		ABED038D15FAE33600FBCE62 /* PanMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanMethods.h; sourceTree = "<group>"; };
 		ABED038E15FAE33600FBCE62 /* PanMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanMethods.m; sourceTree = "<group>"; };
 		ABED039415FAE42700FBCE62 /* ToolBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolBoxViewController.h; path = MonkeyPinch/ToolBoxViewController.h; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 		ABED039A15FAF06B00FBCE62 /* rpm_gauge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rpm_gauge.png; path = "../../Dash-iOS/Dash/images/rpm_gauge.png"; sourceTree = "<group>"; };
 		ABED039B15FAF06B00FBCE62 /* tach_gauge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tach_gauge.png; path = "../../Dash-iOS/Dash/images/tach_gauge.png"; sourceTree = "<group>"; };
 		ABED039C15FAF06B00FBCE62 /* tachometer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tachometer.png; path = "../../Dash-iOS/Dash/images/tachometer.png"; sourceTree = "<group>"; };
+		ABED03A015FBFFC100FBCE62 /* ToolBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ToolBox.xib; path = MonkeyPinch/ToolBox.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 			children = (
 				ABED039415FAE42700FBCE62 /* ToolBoxViewController.h */,
 				ABED039515FAE42700FBCE62 /* ToolBoxViewController.m */,
+				ABED03A015FBFFC100FBCE62 /* ToolBox.xib */,
 				353EC71A14859AD500BC279E /* AVFoundation.framework */,
 				353EC6F714858B6F00BC279E /* MonkeyPinch */,
 				353EC6F014858B6F00BC279E /* Frameworks */,
@@ -128,6 +133,8 @@
 				353EC6F814858B6F00BC279E /* Supporting Files */,
 				ABED038D15FAE33600FBCE62 /* PanMethods.h */,
 				ABED038E15FAE33600FBCE62 /* PanMethods.m */,
+				ABA1B78015FD2E87004C53EA /* PanViewController2.h */,
+				ABA1B78115FD2E87004C53EA /* PanViewController2.m */,
 			);
 			path = MonkeyPinch;
 			sourceTree = "<group>";
@@ -202,6 +209,7 @@
 				ABED039D15FAF06B00FBCE62 /* rpm_gauge.png in Resources */,
 				ABED039E15FAF06B00FBCE62 /* tach_gauge.png in Resources */,
 				ABED039F15FAF06B00FBCE62 /* tachometer.png in Resources */,
+				ABED03A115FBFFC100FBCE62 /* ToolBox.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
