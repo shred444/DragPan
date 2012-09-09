@@ -67,11 +67,11 @@
         panGest.minimumNumberOfTouches = 1;
         panGest.maximumNumberOfTouches = 1;
         
-        NSLog(@"Gesture: %@",image.gestureRecognizers);
+        //NSLog(@"Gesture: %@",image.gestureRecognizers);
         if (![panGest respondsToSelector:@selector(handlePan:)]) {
             //[panGest release];
             //panGest = nil;
-            NSLog(@"Does not respond");
+            //NSLog(@"Does not respond");
         }
         
         [image addGestureRecognizer:panGest];
