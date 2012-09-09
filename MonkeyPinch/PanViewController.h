@@ -23,6 +23,7 @@
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (IBAction)handleRotate:(UIRotationGestureRecognizer *)recognizer;
 - (IBAction)handleCopyPan:(UIPanGestureRecognizer *)recognizer;
+@property (weak, nonatomic) IBOutlet UIView *toolboxView;
 
 @property (strong) AVAudioPlayer * chompPlayer;
 - (void)handleTap:(UITapGestureRecognizer *)recognizer;

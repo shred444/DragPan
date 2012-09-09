@@ -16,6 +16,7 @@
 @synthesize bananaPan;
 @synthesize littleView;
 @synthesize monkeyPan;
+@synthesize toolboxView;
 @synthesize chompPlayer;
 @synthesize hehePlayer;
 @synthesize showCoords = _showCoords;
@@ -83,11 +84,7 @@
     
     
     //add toolbox
-    ToolBoxViewController *tbvc = [[ToolBoxViewController alloc]initWithNibName:@"Toolbox" bundle:nil];
     
-    [self addChildViewController:tbvc];
-    NSLog(@"ChildVC: %d",self.childViewControllers.count);
-    [self.view addSubview:tbvc.view];
 }
 
 - (void)viewDidUnload
@@ -100,6 +97,7 @@
     [self setXPosition:nil];
     [self setSubviewCount:nil];
     [self setMainviewCount:nil];
+    [self setToolboxView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -400,6 +398,36 @@
         [dropShadow removeFromSuperview];
         dropShadow = nil;
     }
+}
+- (IBAction)editView:(id)sender {
+    NSLog(@"Edit View!");
+    [self createToolbox];
+    
+    
+}
+
+-(UIViewController *)createToolbox
+{
+    ToolBoxViewController *tbvc = [[ToolBoxViewController alloc]initWithNibName:@"Toolbox" bundle:nil];
+    tbvc.showCoords = NO;
+    tbvc.showDropShadow = YES;
+    tbvc.snapToGrid = YES;
+    tbvc.gridSpacing = 20;
+    tbvc.scaling = 2;
+    
+    [self addChildViewController:tbvc];
+    NSLog(@"ChildVC: %d",self.childViewControllers.count);
+    CGRect toolboxFrame = tbvc.view.frame;
+    toolboxFrame.origin = CGPointMake(0, 200);
+    
+    //get toolbar frame:
+    ///CGRect tabbarFrame = self.tabBarController.tabBar.frame;
+    tbvc.view.frame = toolboxFrame;
+    //self.tabBarController.tabBar.hidden = YES;
+    
+    //tbvc.view.frame = tabbarFrame;
+    [self.view addSubview:tbvc.view];
+    return tbvc;
 }
 
 @end

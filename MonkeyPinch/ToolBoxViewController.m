@@ -39,6 +39,7 @@
 	// Do any additional setup after loading the view.
     
     
+    //initialize tools
     for(UIImageView *image in self.view.subviews)
     {
         //add a gesture recognizer to each one
@@ -82,7 +83,6 @@
 
 - (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer {
     
-    NSLog(@"State: %d", recognizer.state);
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         
@@ -97,7 +97,7 @@
         NSLog(@"Trans Point Center: %d, %d",(int)translatedPoint.x,(int)translatedPoint.y);
         
         //add the dragged object to the main view
-        [self.view addSubview:recognizerView];
+        [self.parentViewController.view addSubview:recognizerView];
         
         //translate image to new coord system
         recognizerView.center = translatedPoint;
@@ -143,23 +143,25 @@
     {
         NSLog(@"State ended");
         UIImageView *currentImage = (UIImageView *)recognizer.view;
-        UIPanGestureRecognizer *panGest = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(moveImage:)];
-        panGest.delegate = self;
-        panGest.minimumNumberOfTouches = 1;
-        panGest.maximumNumberOfTouches = 1;
-        
+        UIPanGestureRecognizer *moveGest = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(moveImage:)];
+        moveGest.delegate = self;
+        moveGest.minimumNumberOfTouches = 1;
+        moveGest.maximumNumberOfTouches = 1;
+        NSLog(@"Removed Original %d Gestures", currentImage.gestureRecognizers.count);
         [recognizer.view removeGestureRecognizer:recognizer];
+
         
         currentImage.userInteractionEnabled = YES;
         
-        [currentImage addGestureRecognizer:panGest];
+        [currentImage addGestureRecognizer:moveGest];
+        NSLog(@"Added new gesture %d", currentImage.gestureRecognizers.count);
         
         //create the pinch recognizer for the copy image
         UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handlePinch:)];
         pinchRecognizer.delegate = self;
         
         [currentImage addGestureRecognizer:pinchRecognizer];
-        
+        NSLog(@"Added Pinch Recognizer");
         
         //snap final image to grid
         currentImage.center = [self snapToGrid:currentImage.center gridSpacing:self.gridSpacing];
@@ -178,6 +180,38 @@
     
 }
 
+
+- (IBAction)moveImage:(UIPanGestureRecognizer *)recognizer {
+    if(recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        //move has begun
+        //initialize drop shadow
+        if(self.showDropShadow)
+        {
+            [self createDropShadowWithRecognizer:recognizer];
+            
+        }
+        
+    }else if(recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        //move has ended
+        
+        //remove drop shadow
+        [self removeDropShadowWithRegister:recognizer];
+        
+        //snap to grid
+        if(self.snapToGrid)
+        {
+            recognizer.view.center = [self snapToGrid:recognizer.view.center gridSpacing:self.gridSpacing];
+        }
+        
+    }else if(recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        //move is happening
+        [self performTranslationWithRecognizer:recognizer];
+        
+    }
+}
 
 
 -(UIImageView *)createCopyOfImageView:(UIImageView *)imageView atPosition:(CGPoint)point inView:(UIView *)view
@@ -275,10 +309,10 @@
     dropShadow.backgroundColor = [UIColor grayColor];
     dropShadow.alpha = .5;
     
-    [self.view addSubview:dropShadow];
+    [self.parentViewController.view addSubview:dropShadow];
     dropShadow.center = recognizer.view.center;
     
-    [self.view bringSubviewToFront:recognizer.view];
+    [self.parentViewController.view bringSubviewToFront:recognizer.view];
     
     return dropShadow;
 }

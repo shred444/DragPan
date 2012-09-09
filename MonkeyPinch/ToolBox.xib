@@ -78,7 +78,6 @@
 							<string key="NSFrame">{{226, 0}, {68, 67}}</string>
 							<reference key="NSSuperview" ref="144974145"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<int key="IBUIContentMode">1</int>
 							<int key="IBUITag">2</int>
 							<reference key="IBUIGestureRecognizers" ref="0"/>
@@ -89,7 +88,7 @@
 							</object>
 						</object>
 					</array>
-					<string key="NSFrameSize">{320, 78}</string>
+					<string key="NSFrameSize">{320, 67}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="868241916"/>
@@ -203,17 +202,20 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">ToolBoxViewController</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">handlePan:</string>
-						<string key="NS.object.0">UIPanGestureRecognizer</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">handlePan:</string>
-						<object class="IBActionInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="handlePan:">UIPanGestureRecognizer</string>
+						<string key="moveImage:">UIPanGestureRecognizer</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="handlePan:">
 							<string key="name">handlePan:</string>
 							<string key="candidateClassName">UIPanGestureRecognizer</string>
 						</object>
-					</object>
+						<object class="IBActionInfo" key="moveImage:">
+							<string key="name">moveImage:</string>
+							<string key="candidateClassName">UIPanGestureRecognizer</string>
+						</object>
+					</dictionary>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">monkey</string>
 						<string key="NS.object.0">UIImageView</string>
