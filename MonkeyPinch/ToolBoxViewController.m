@@ -21,6 +21,8 @@
 @synthesize snapToGrid = _snapToGrid;
 @synthesize scaling = _scaling;
 @synthesize mainView = _mainView;
+@synthesize dropView = _dropView;
+@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +33,23 @@
    
     
     return self;
+}
+
++(ToolBoxViewController *)displayToolBoxInViewController:(UIViewController *)viewController inView:(UIView *)view withTargetView:(UIView *)targetView
+{
+    ToolBoxViewController *tbvc = [[ToolBoxViewController alloc]initWithNibName:@"Toolbox" bundle:nil];
+    
+    [viewController addChildViewController:tbvc];
+    [view addSubview:tbvc.view];
+    tbvc.showCoords = NO;
+    tbvc.showDropShadow = YES;
+    tbvc.gridSpacing = 20;
+    tbvc.snapToGrid = YES;
+    tbvc.scaling = 2;
+    
+    tbvc.dropView = targetView;
+    
+    return tbvc;
 }
 
 - (void)viewDidLoad
@@ -97,7 +116,8 @@
         NSLog(@"Trans Point Center: %d, %d",(int)translatedPoint.x,(int)translatedPoint.y);
         
         //add the dragged object to the main view
-        [self.parentViewController.view addSubview:recognizerView];
+        //[self.dropView addSubview:recognizerView];
+        [self.dropView addSubview:recognizerView];
         
         //translate image to new coord system
         recognizerView.center = translatedPoint;
@@ -168,6 +188,10 @@
         
         //remove dropshadow
         [self removeDropShadowWithRegister:recognizer];
+        
+        //notify the delegate
+        [self.delegate didDropView:currentImage inTarget:self.dropView];
+        
         
     }else if(recognizer.state == UIGestureRecognizerStateChanged)
     {
@@ -309,10 +333,10 @@
     dropShadow.backgroundColor = [UIColor grayColor];
     dropShadow.alpha = .5;
     
-    [self.parentViewController.view addSubview:dropShadow];
+    [self.dropView addSubview:dropShadow];
     dropShadow.center = recognizer.view.center;
     
-    [self.parentViewController.view bringSubviewToFront:recognizer.view];
+    [self.dropView bringSubviewToFront:recognizer.view];
     
     return dropShadow;
 }

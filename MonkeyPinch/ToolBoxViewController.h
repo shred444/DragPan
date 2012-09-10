@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ToolBoxViewController;
+@protocol ToolBoxViewControllerDelegate <NSObject>
+
+
+-(void)didDropView:(UIView *)view inTarget:(UIView *)targetView;
+
+
+@end
+
 
 @interface ToolBoxViewController : UIViewController <UIGestureRecognizerDelegate>
 {
-    
     UIView *dropShadow;
     
 }
@@ -23,4 +31,8 @@
 @property float gridSpacing;
 @property float scaling;
 @property (nonatomic, weak) UIView *mainView;
+@property (weak, nonatomic) UIView *dropView;
+@property (weak, nonatomic) id <ToolBoxViewControllerDelegate> delegate;
+
++ (ToolBoxViewController *)displayToolBoxInViewController:(UIViewController *)viewController inView:(UIView *)view withTargetView:(UIView *)targetView;
 @end
